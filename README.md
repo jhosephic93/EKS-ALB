@@ -23,7 +23,7 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 
 ## Implementation
 
-1. Run script to create OIDC (OpenID Connect)
+1. Run script to create OIDC (OpenID Connect.)
 
     ```bash
     eksctl utils associate-iam-oidc-provider --region <region> --cluster <your-cluster-eks> --approve --profile <your-profile>

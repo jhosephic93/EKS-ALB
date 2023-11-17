@@ -51,8 +51,12 @@ Resources and configurations for deploying EKS with Application Load Balancer on
     kubectl get serviceaccount -n kube-system | grep load
     ```
 
-4. helm install loadl balancer
+4. helm install loadl balancer | Update cluster-name value
 
-   ```console
-   helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=clusterName --set serviceAccount.create=false --set serviceAccount name=aws-load-balancer-controller
-   ```
+  ```console
+  helm install aws-load-balancer-controller eks/aws-load-balancer-controller
+  -n kube-system \
+  --set clusterName=<cluster-name> \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller
+  ```

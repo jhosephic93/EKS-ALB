@@ -63,7 +63,7 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 
 5. Execute
 
-  ```console
-  kubectl apply -f deployment.yaml
-  kubectl apply -f ingress.yaml
-  ```
+    ```console
+    kubectl apply -f deployment.yaml
+    kubectl apply -f ingress.yaml
+    ```

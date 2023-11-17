@@ -12,6 +12,8 @@ Resources and configurations for deploying EKS with Application Load Balancer on
   - 1 Internet Gateways
   - 1 NAT Gateways
 - 01 EKS Cluster created
+- Create EKS cluster role with policies - AmazonEKSClusterPolicy, AmazonEKSVPCResourceController.
+- Create EKS node group role with policies - AmazonEKSWorkerNodePolicy, AmazonEC2ContainerRegistryReadOnly, AmazonEKS_CNI_Policy.
 - Change the following values in the loadbalancer-trust-policy.json file
   
   ```json
@@ -31,7 +33,7 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 
 2. Run script to create the role that will be used by the service account
 
-    ```bash
+    ```aws
     aws iam create-policy --policy-name LoadBalancerControllerPolicy --policy-document file://loadbalancer-controller-policy.json --profile <your-profile>
     aws iam create-role --role-name LoadBalancerControllerRole --assume-role-policy-document file://loadbalancer-trust-policy.json --profile <your-profile>
     aws iam attach-role-policy --role-name LoadBalancerControllerRole --policy-arn <PolicyArn> --profile <your-profile>
@@ -48,3 +50,9 @@ Resources and configurations for deploying EKS with Application Load Balancer on
     kubectl apply -f service-account.yaml
     kubectl get serviceaccount -n kube-system | grep load
     ```
+
+4. helm install loadl balancer
+
+   ```console
+   helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=clusterName --set serviceAccount.create=false --set serviceAccount name=aws-load-balancer-controller
+   ```

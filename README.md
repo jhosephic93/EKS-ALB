@@ -44,8 +44,7 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 3. Update the following values in the service-account.yaml file
 
     ```bash
-    <accountid>
-    <loadbalancerControllerRoleName>
+    eks.amazonaws.com/role-arn: arn:aws:iam::<accountId>:role/LoadBalancerControllerRole
     ```
 
 4. Run Script

@@ -37,7 +37,6 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 
     ```aws
     aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://loadbalancer-controller-policy.json --profile <your-profile>
-    
     aws iam create-role --role-name LoadBalancerControllerRole --assume-role-policy-document file://loadbalancer-trust-policy.json --profile <your-profile>
     aws iam attach-role-policy --role-name LoadBalancerControllerRole --policy-arn <PolicyArn> --profile <your-profile>
     ```
@@ -49,22 +48,21 @@ Resources and configurations for deploying EKS with Application Load Balancer on
     <loadbalancerControllerRoleName>
     ```
 
+4. Run Script
+
     ```bash
     kubectl apply -f service-account.yaml
     kubectl get serviceaccount -n kube-system | grep load
+    kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
     ```
 
-4. helm install loadl balancer | Update cluster-name value
+5. helm install loadl balancer | Update cluster-name value
 
     ```console
-    helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
-    -n kube-system \
-    --set clusterName=<cluster-name> \
-    --set serviceAccount.create=false \
-    --set serviceAccount.name=aws-load-balancer-controller
+    helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=<your-cluster-name> --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
     ```
 
-5. Execute
+6. Execute
 
     ```console
     kubectl apply -f deployment.yaml

@@ -23,7 +23,9 @@ Resources and configurations for deploying EKS with Application Load Balancer on
   <oidcId>
   ```
 
-![oidc](./img/idoidc.jpg)
+- This is OIDC ID | OpendID Connect
+
+    ![oidc](./img/idoidc.jpg)
 
 ## Implementation
 

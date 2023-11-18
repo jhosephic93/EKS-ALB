@@ -9,10 +9,12 @@ Resources and configurations for deploying EKS with Application Load Balancer on
     - Tags:
       - **kubernetes.io/role/elb : 1**
   - 2 Private Subnets
+    - Tags:
+      - **kubernetes.io/role/internal-elb : 1**
   - 1 Internet Gateways
   - 1 NAT Gateways
 - 01 EKS Cluster created
-- Create EKS cluster role with policies - AmazonEKSClusterPolicy, AmazonEKSVPCResourceController.
+- Create EKS-cluster role with policies - AmazonEKSClusterPolicy.
 - Create EKS node group role with policies EC2 => AmazonEKSWorkerNodePolicy, AmazonEC2ContainerRegistryReadOnly, AmazonEKS_CNI_Policy.
 - Change the following values in the loadbalancer-trust-policy.json file
   
@@ -34,7 +36,8 @@ Resources and configurations for deploying EKS with Application Load Balancer on
 2. Run script to create the role that will be used by the service account
 
     ```aws
-    aws iam create-policy --policy-name LoadBalancerControllerPolicy --policy-document file://loadbalancer-controller-policy.json --profile <your-profile>
+    aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://loadbalancer-controller-policy.json --profile <your-profile>
+    
     aws iam create-role --role-name LoadBalancerControllerRole --assume-role-policy-document file://loadbalancer-trust-policy.json --profile <your-profile>
     aws iam attach-role-policy --role-name LoadBalancerControllerRole --policy-arn <PolicyArn> --profile <your-profile>
     ```
